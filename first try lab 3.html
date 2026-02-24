@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation</title>
+    <style>
+        .box {
+            border: 1px solid black;
+            padding: 15px;
+            width: 300px;
+            margin-bottom: 20px;
+        }
+        .hint {
+            cursor: pointer;
+            color: blue;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Validation Form</h2>
+
+<!-- 1️⃣ NAME -->
+<div class="box">
+    <h3>Name</h3>
+    <form onsubmit="return validateName()">
+        <input type="text" id="name" placeholder="Full Name">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <p id="nameMsg" style="color:red;"></p>
+</div>
+
+<!-- 2️⃣ EMAIL -->
+<div class="box">
+    <h3>Email</h3>
+    <form onsubmit="return validateEmail()">
+        <input type="text" id="email" placeholder="Enter Email">
+        
+        <!-- Hint icon -->
+        <span class="hint" title="Example: sample@example.com">i</span>
+
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <p id="emailMsg" style="color:red;"></p>
+</div>
+
+<!-- 3️⃣ GENDER -->
+<div class="box">
+    <h3>Gender</h3>
+    <form onsubmit="return validateGender()">
+        <input type="radio" name="gender" value="Male"> Male
+        <input type="radio" name="gender" value="Female"> Female
+        <input type="radio" name="gender" value="Other"> Other
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <p id="genderMsg" style="color:red;"></p>
+</div>
+
+<!-- 4️⃣ DATE OF BIRTH -->
+<div class="box">
+    <h3>Date of Birth</h3>
+    <form onsubmit="return validateDOB()">
+        <input type="text" id="dd" placeholder="dd" size="2"> /
+        <input type="text" id="mm" placeholder="mm" size="2"> /
+        <input type="text" id="yyyy" placeholder="yyyy" size="4">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <p id="dobMsg" style="color:red;"></p>
+</div>
+
+<script>
+
+function validateName() {
+    var name = document.getElementById("name").value;
+
+    if (name == "") {
+        document.getElementById("nameMsg").innerHTML = "Name cannot be empty";
+        return false;
+    }
+
+    var words = name.split(" ");
+    if (words.length < 2) {
+        document.getElementById("nameMsg").innerHTML = "Enter at least two words";
+        return false;
+    }
+
+    var first = name.charAt(0);
+    if (!(first >= 'A' && first <= 'Z') && !(first >= 'a' && first <= 'z')) {
+        document.getElementById("nameMsg").innerHTML = "Must start with a letter";
+        return false;
+    }
+
+    alert("Valid Name!");
+    return true;
+}
+
+
+function validateEmail() {
+    var email = document.getElementById("email").value;
+
+    if (email == "") {
+        document.getElementById("emailMsg").innerHTML = "Email cannot be empty";
+        return false;
+    }
+
+    if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
+        document.getElementById("emailMsg").innerHTML = "Invalid Email";
+        return false;
+    }
+
+    alert("Valid Email!");
+    return true;
+}
+
+
+function validateGender() {
+    var genders = document.getElementsByName("gender");
+    var selected = false;
+
+    for (var i = 0; i < genders.length; i++) {
+        if (genders[i].checked) {
+            selected = true;
+        }
+    }
+
+    if (!selected) {
+        document.getElementById("genderMsg").innerHTML = "Select one option";
+        return false;
+    }
+
+    alert("Gender Selected!");
+    return true;
+}
+
+
+function validateDOB() {
+    var dd = document.getElementById("dd").value;
+    var mm = document.getElementById("mm").value;
+    var yyyy = document.getElementById("yyyy").value;
+
+    if (dd == "" || mm == "" || yyyy == "") {
+        document.getElementById("dobMsg").innerHTML = "All fields required";
+        return false;
+    }
+
+    dd = parseInt(dd);
+    mm = parseInt(mm);
+    yyyy = parseInt(yyyy);
+
+    if (dd < 1 || dd > 31) {
+        document.getElementById("dobMsg").innerHTML = "Day must be 1-31";
+        return false;
+    }
+
+    if (mm < 1 || mm > 12) {
+        document.getElementById("dobMsg").innerHTML = "Month must be 1-12";
+        return false;
+    }
+
+    if (yyyy < 1900 || yyyy > 2016) {
+        document.getElementById("dobMsg").innerHTML = "Year must be 1900-2016";
+        return false;
+    }
+
+    alert("Valid Date of Birth!");
+    return true;
+}
+
+</script>
+
+</body>
+</html>
