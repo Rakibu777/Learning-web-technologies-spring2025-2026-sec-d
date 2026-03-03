@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Person Profile</title>
+
+    <style>
+        body{
+            font-family: Arial;
+        }
+
+        .box{
+            width: 500px;
+            margin: auto;
+            border: 2px solid black;
+            padding: 20px;
+        }
+
+        h2{
+            text-align: center;
+        }
+
+        table{
+            width: 100%;
+        }
+
+        td{
+            padding: 6px;
+        }
+
+        .error{
+            color: red;
+            font-size: 12px;
+        }
+
+        .btn{
+            padding: 5px 12px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>PERSON PROFILE</h2>
+
+    <form onsubmit="return validate()">
+
+        <table border="1">
+
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" id="name">
+                    <div id="nameError" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="text" id="email">
+                    <div id="emailError" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <input type="radio" name="gender"> Male
+                    <input type="radio" name="gender"> Female
+                    <input type="radio" name="gender"> Other
+                    <div id="genderError" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Date of Birth</td>
+                <td>
+                    <input type="date" id="dob">
+                    <div id="dobError" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Blood Group</td>
+                <td>
+                    <select id="blood">
+                        <option value="">Select</option>
+                        <option>A+</option>
+                        <option>B+</option>
+                        <option>O+</option>
+                        <option>AB+</option>
+                    </select>
+                    <div id="bloodError" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Degree</td>
+                <td>
+                    <input type="checkbox" name="degree"> SSC
+                    <input type="checkbox" name="degree"> HSC
+                    <input type="checkbox" name="degree"> BSc
+                    <div id="degreeError" class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Photo</td>
+                <td>
+                    <input type="file" id="photo">
+                    <div id="photoError" class="error"></div>
+                </td>
+            </tr>
+
+        </table>
+
+        <br>
+
+        <center>
+            <input type="submit" value="Submit" class="btn">
+            <input type="reset" value="Reset" class="btn">
+        </center>
+
+    </form>
+
+</div>
+
+<script>
+
+function validate(){
+
+    // clear all previous errors
+    document.getElementById("nameError").innerHTML="";
+    document.getElementById("emailError").innerHTML="";
+    document.getElementById("genderError").innerHTML="";
+    document.getElementById("dobError").innerHTML="";
+    document.getElementById("bloodError").innerHTML="";
+    document.getElementById("degreeError").innerHTML="";
+    document.getElementById("photoError").innerHTML="";
+
+    let valid = true;
+
+    // Name check
+    let name = document.getElementById("name").value;
+    if(name == ""){
+        document.getElementById("nameError").innerHTML="Name required";
+        valid = false;
+    }
+
+    // Email check (very basic)
+    let email = document.getElementById("email").value;
+    if(email == ""){
+        document.getElementById("emailError").innerHTML="Email required";
+        valid = false;
+    }
+    else if(email.indexOf("@") == -1){
+        document.getElementById("emailError").innerHTML="Email must contain @";
+        valid = false;
+    }
+
+    // Gender check
+    let gender = document.getElementsByName("gender");
+    let selected = false;
+
+    for(let i=0;i<gender.length;i++){
+        if(gender[i].checked){
+            selected = true;
+        }
+    }
+
+    if(selected == false){
+        document.getElementById("genderError").innerHTML="Select gender";
+        valid = false;
+    }
+
+    // DOB check
+    let dob = document.getElementById("dob").value;
+    if(dob == ""){
+        document.getElementById("dobError").innerHTML="Select date of birth";
+        valid = false;
+    }
+
+    // Blood group check
+    let blood = document.getElementById("blood").value;
+    if(blood == ""){
+        document.getElementById("bloodError").innerHTML="Select blood group";
+        valid = false;
+    }
+
+    // Degree check
+    let degree = document.getElementsByName("degree");
+    let degreeSelected = false;
+
+    for(let i=0;i<degree.length;i++){
+        if(degree[i].checked){
+            degreeSelected = true;
+        }
+    }
+
+    if(degreeSelected == false){
+        document.getElementById("degreeError").innerHTML="Select at least one degree";
+        valid = false;
+    }
+
+    // Photo check
+    let photo = document.getElementById("photo").value;
+    if(photo == ""){
+        document.getElementById("photoError").innerHTML="Upload photo";
+        valid = false;
+    }
+
+    return valid;
+}
+
+</script>
+
+</body>
+</html>
