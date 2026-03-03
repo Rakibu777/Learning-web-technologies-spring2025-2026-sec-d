@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Red Circle Move</title>
+    <style>
+        #d1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;  
+            position: relative;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Red Circle Animation</h2>
+
+<div id="d1"></div>
+<br>
+<button onclick="move()">Start</button>
+
+<script>
+
+function move() {
+
+    let d1 = document.getElementById("d1");
+    let count = 0;
+
+    let interval = setInterval(() => {
+
+        if (count > 50) {
+            clearInterval(interval);
+        } 
+        else {
+
+            let current = window.getComputedStyle(d1).left;
+
+            if (current === 0) {
+                current = "10px";
+            } 
+            else {
+                current = parseInt(current) + 10 + "px";
+            }
+
+            d1.style.left = current;
+            count++;
+        }
+
+    }, 100);
+}
+
+</script>
+
+</body>
+</html>
